@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — TaskFlow Pro</title>
+  <meta name="description" content="Your productivity dashboard — stats, upcoming deadlines, and weekly charts." />
+
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/pages.css" />
+  <link rel="stylesheet" href="css/dark-mode.css" />
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body data-page="dashboard">
+  <div id="toast-container"></div>
+
+  <div class="app-shell">
+    <!-- ────────── Sidebar ────────── -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <a href="index.html" class="sidebar-logo">
+          <div class="sidebar-logo-icon">⚡</div>
+          <span class="sidebar-logo-text">TaskFlow<span>Pro</span></span>
+        </a>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="sidebar-section-label">Main</div>
+        <a href="dashboard.html" class="sidebar-link">
+          <span class="sidebar-link-icon">🏠</span> Dashboard
+        </a>
+        <a href="tasks.html" class="sidebar-link">
+          <span class="sidebar-link-icon">📋</span> My Tasks
+          <span class="sidebar-badge" id="notif-badge" style="display:none">0</span>
+        </a>
+        <a href="kanban.html" class="sidebar-link">
+          <span class="sidebar-link-icon">🗂️</span> Kanban Board
+        </a>
+
+        <div class="sidebar-section-label">Account</div>
+        <a href="profile.html" class="sidebar-link">
+          <span class="sidebar-link-icon">👤</span> Profile
+        </a>
+        <a href="#" class="sidebar-link" data-logout>
+          <span class="sidebar-link-icon">🚪</span> Sign Out
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <a href="profile.html" class="sidebar-user">
+          <div class="avatar avatar-sm" id="sidebar-avatar">?</div>
+          <div class="sidebar-user-info">
+            <div class="sidebar-user-name" id="sidebar-user-name">Loading...</div>
+            <div class="sidebar-user-email" id="sidebar-user-email"></div>
+          </div>
+        </a>
+      </div>
+    </aside>
+
+    <!-- Sidebar overlay (mobile) -->
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <!-- ────────── Main Content ────────── -->
+    <main class="main-content">
+      <!-- Topbar -->
+      <header class="topbar">
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
+        <h2 class="topbar-title">Dashboard</h2>
+        <div class="topbar-actions">
+          <button class="topbar-icon-btn" data-theme-toggle title="Toggle theme">🌙</button>
+          <a href="tasks.html" class="btn btn-primary btn-sm">＋ New Task</a>
+        </div>
+      </header>
+
+      <!-- Page Content -->
+      <div class="page-container">
+        <!-- Welcome Banner -->
+        <div class="welcome-banner animate-fadeInUp">
+          <div style="position:relative; z-index:1;">
+            <div class="welcome-time" id="welcome-greeting">Good morning,</div>
+            <div class="welcome-name" id="welcome-name">Loading...</div>
+            <div class="welcome-sub">Here's your productivity overview for today.</div>
+          </div>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid stagger-children">
+          <div class="stat-card animate-fadeInUp">
+            <div class="stat-card-icon" style="background: rgba(99,102,241,0.12); color: var(--color-primary-500);">📋</div>
+            <div class="stat-card-value" id="stat-total">—</div>
+            <div class="stat-card-label">Total Tasks</div>
+          </div>
+          <div class="stat-card animate-fadeInUp">
+            <div class="stat-card-icon" style="background: rgba(16,185,129,0.12); color: var(--color-success);">✅</div>
+            <div class="stat-card-value" id="stat-completed">—</div>
+            <div class="stat-card-label">Completed</div>
+          </div>
+          <div class="stat-card animate-fadeInUp">
+            <div class="stat-card-icon" style="background: rgba(245,158,11,0.12); color: var(--color-warning);">⏳</div>
+            <div class="stat-card-value" id="stat-todo">—</div>
+            <div class="stat-card-label">Pending</div>
+          </div>
+          <div class="stat-card animate-fadeInUp">
+            <div class="stat-card-icon" style="background: rgba(239,68,68,0.12); color: var(--color-error);">🔥</div>
+            <div class="stat-card-value" id="stat-overdue">—</div>
+            <div class="stat-card-label">Overdue</div>
+          </div>
+        </div>
+
+        <!-- Completion Rate -->
+        <div class="card animate-fadeInUp" style="margin-bottom: var(--space-6);">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom: var(--space-3);">
+            <span style="font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text-primary);">
+              Completion Rate
+            </span>
+            <span id="completion-pct" style="font-size: var(--text-sm); font-weight: var(--font-bold); color: var(--color-primary-500);">0%</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="completion-bar" style="width: 0%;"></div>
+          </div>
+        </div>
+
+        <!-- Main Dashboard Grid -->
+        <div class="dashboard-grid">
+          <!-- Weekly Chart -->
+          <div class="card animate-fadeInUp">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom: var(--space-5);">
+              <h3 style="font-size: var(--text-lg);">Weekly Productivity</h3>
+              <span class="badge badge-primary">Last 7 days</span>
+            </div>
+            <div class="chart-container">
+              <canvas id="weeklyChart"></canvas>
+            </div>
+          </div>
+
+          <!-- Upcoming Deadlines -->
+          <div class="card animate-fadeInUp">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom: var(--space-5);">
+              <h3 style="font-size: var(--text-lg);">Upcoming Deadlines</h3>
+              <a href="tasks.html" class="btn btn-ghost btn-sm">View all →</a>
+            </div>
+            <div class="deadline-list" id="upcoming-list">
+              <!-- Skeleton loading -->
+              <div class="deadline-item">
+                <div class="skeleton" style="width:8px; height:8px; border-radius:50%; flex-shrink:0;"></div>
+                <div style="flex:1;">
+                  <div class="skeleton" style="height:14px; width:80%; margin-bottom:6px;"></div>
+                  <div class="skeleton" style="height:12px; width:50%;"></div>
+                </div>
+              </div>
+              <div class="deadline-item">
+                <div class="skeleton" style="width:8px; height:8px; border-radius:50%; flex-shrink:0;"></div>
+                <div style="flex:1;">
+                  <div class="skeleton" style="height:14px; width:70%; margin-bottom:6px;"></div>
+                  <div class="skeleton" style="height:12px; width:40%;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="card animate-fadeInUp" style="margin-top: var(--space-6);">
+          <h3 style="font-size: var(--text-lg); margin-bottom: var(--space-5);">Quick Actions</h3>
+          <div style="display: flex; gap: var(--space-4); flex-wrap: wrap;">
+            <a href="tasks.html" class="btn btn-primary">
+              <span>＋</span> Create Task
+            </a>
+            <a href="kanban.html" class="btn btn-secondary">
+              <span>🗂️</span> Open Kanban
+            </a>
+            <a href="profile.html" class="btn btn-secondary">
+              <span>👤</span> Edit Profile
+            </a>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/utils.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/notifications.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TaskFlow Pro — Smart Productivity & Task Management Platform</title>
+  <meta name="description" content="TaskFlow Pro is a premium task management platform to manage your work, goals, projects, and deadlines in one beautiful place." />
+
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/pages.css" />
+  <link rel="stylesheet" href="css/dark-mode.css" />
+  <style>
+    /* Landing-page extra */
+    .landing-body { background: #0f0a1e; }
+    .features { text-align: left; }
+    .features-header { max-width: 540px; }
+    .cta-section {
+      padding: var(--space-24) var(--space-8);
+      background: linear-gradient(135deg, #1a0a3d 0%, #0f0a1e 100%);
+      text-align: center;
+    }
+    .cta-section .section-title { color: white; }
+    .cta-section .section-desc  { color: rgba(255,255,255,0.55); }
+    .cta-card {
+      max-width: 640px; margin: 0 auto;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(99,102,241,0.25);
+      border-radius: var(--radius-2xl);
+      padding: var(--space-12) var(--space-8);
+    }
+    .testimonials {
+      padding: var(--space-24) var(--space-8);
+      background: #0d1117;
+    }
+    .testimonials-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-5); margin-top: var(--space-12);
+    }
+    .testimonial-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: var(--radius-xl);
+      padding: var(--space-6);
+    }
+    .testimonial-stars { color: #fbbf24; margin-bottom: var(--space-3); font-size: 0.85rem; }
+    .testimonial-text  { color: rgba(255,255,255,0.6); font-size: var(--text-sm); line-height: 1.7; margin-bottom: var(--space-4); }
+    .testimonial-name  { color: rgba(255,255,255,0.85); font-size: var(--text-sm); font-weight: 600; }
+    .testimonial-role  { color: rgba(255,255,255,0.4); font-size: var(--text-xs); margin-top: 2px; }
+    @media (max-width: 768px) {
+      .testimonials-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body class="landing-body" data-page="landing">
+
+  <!-- Toast Container -->
+  <div id="toast-container"></div>
+
+  <!-- Navigation -->
+  <nav class="landing-nav" id="landing-nav">
+    <a href="/" class="nav-logo">
+      <div class="nav-logo-icon">⚡</div>
+      <span class="nav-logo-text">TaskFlow<span>Pro</span></span>
+    </a>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#testimonials">Reviews</a>
+      <a href="#cta">Pricing</a>
+    </div>
+    <div class="nav-cta">
+      <a href="login.html" class="nav-login">Sign In</a>
+      <a href="register.html" class="btn btn-primary btn-sm">Get Started Free</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-orb hero-orb-1"></div>
+    <div class="hero-orb hero-orb-2"></div>
+    <div class="hero-orb hero-orb-3"></div>
+    <div class="hero-grid"></div>
+
+    <div class="hero-content">
+      <div class="hero-badge">
+        <div class="hero-badge-dot"></div>
+        Smart Productivity Platform — Free to Use
+      </div>
+
+      <h1 class="hero-title">
+        Work Smarter.<br/>
+        <span class="hero-title-line2">Ship Faster.</span>
+      </h1>
+
+      <p class="hero-desc">
+        TaskFlow Pro helps you manage tasks, track productivity, and hit deadlines 
+        — with a beautiful interface built for modern teams.
+      </p>
+
+      <div class="hero-cta">
+        <a href="register.html" class="btn btn-primary btn-lg">
+          <span>🚀</span> Start for Free
+        </a>
+        <a href="login.html" class="btn btn-secondary btn-lg">
+          Sign In
+        </a>
+      </div>
+
+      <div class="hero-stats">
+        <div>
+          <div class="hero-stat-value">10k+</div>
+          <div class="hero-stat-label">Tasks Managed</div>
+        </div>
+        <div>
+          <div class="hero-stat-value">98%</div>
+          <div class="hero-stat-label">User Satisfaction</div>
+        </div>
+        <div>
+          <div class="hero-stat-value">5min</div>
+          <div class="hero-stat-label">Setup Time</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="features" id="features">
+    <div style="max-width: 1200px; margin: 0 auto;">
+      <div class="features-header" data-animate>
+        <div class="section-label">✨ Features</div>
+        <h2 class="section-title">Everything you need to<br/>stay productive</h2>
+        <p class="section-desc">From smart task management to productivity insights — all in one premium platform.</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card" data-animate>
+          <div class="feature-icon" style="background: rgba(99,102,241,0.15);">📋</div>
+          <div class="feature-title">Smart Task Manager</div>
+          <div class="feature-desc">Create, organize, and prioritize tasks with deadlines, categories, and priority levels. Never miss a deadline again.</div>
+        </div>
+        <div class="feature-card" data-animate>
+          <div class="feature-icon" style="background: rgba(139,92,246,0.15);">📊</div>
+          <div class="feature-title">Productivity Insights</div>
+          <div class="feature-desc">Track your weekly & monthly performance with beautiful charts. Understand your work patterns and improve.</div>
+        </div>
+        <div class="feature-card" data-animate>
+          <div class="feature-icon" style="background: rgba(236,72,153,0.15);">🗂️</div>
+          <div class="feature-title">Kanban Board</div>
+          <div class="feature-desc">Drag and drop tasks across To Do, In Progress, and Completed columns for a visual workflow overview.</div>
+        </div>
+        <div class="feature-card" data-animate>
+          <div class="feature-icon" style="background: rgba(6,182,212,0.15);">🔍</div>
+          <div class="feature-title">Smart Search & Filters</div>
+          <div class="feature-desc">Instantly search tasks and filter by priority, category, deadline, or status. Find anything in seconds.</div>
+        </div>
+        <div class="feature-card" data-animate>
+          <div class="feature-icon" style="background: rgba(34,197,94,0.15);">🔐</div>
+          <div class="feature-title">Secure & Private</div>
+          <div class="feature-desc">JWT authentication with bcrypt hashing. Your data is always private and protected with enterprise-grade security.</div>
+        </div>
+        <div class="feature-card" data-animate>
+          <div class="feature-icon" style="background: rgba(245,158,11,0.15);">🌙</div>
+          <div class="feature-title">Dark Mode</div>
+          <div class="feature-desc">Stunning light and dark themes with glassmorphism design. Easy on the eyes, day or night.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="testimonials" id="testimonials">
+    <div style="max-width: 1200px; margin: 0 auto; text-align: center;">
+      <div class="section-label">💬 Testimonials</div>
+      <h2 class="section-title" style="color: white;">Loved by productive people</h2>
+
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <div class="testimonial-text">"TaskFlow Pro changed how I work. The kanban board and analytics make me feel like a productivity machine."</div>
+          <div class="testimonial-name">Rahul Sharma</div>
+          <div class="testimonial-role">Full Stack Developer</div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <div class="testimonial-text">"The cleanest task app I've ever used. The UI is stunning — better than Notion and way simpler to use."</div>
+          <div class="testimonial-name">Priya Mehta</div>
+          <div class="testimonial-role">Product Designer</div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <div class="testimonial-text">"I manage 5 projects and TaskFlow keeps me on track. The deadline reminders and productivity graphs are 🔥"</div>
+          <div class="testimonial-name">Aditya Verma</div>
+          <div class="testimonial-role">Startup Founder</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section" id="cta">
+    <div class="cta-card" data-animate>
+      <div class="section-label" style="justify-content: center;">🚀 Get Started</div>
+      <h2 class="section-title">Ready to be more productive?</h2>
+      <p class="section-desc" style="margin: 0 auto var(--space-8);">
+        Join thousands of users who manage their work better with TaskFlow Pro.
+        Free forever — no credit card required.
+      </p>
+      <div style="display: flex; gap: var(--space-4); justify-content: center; flex-wrap: wrap;">
+        <a href="register.html" class="btn btn-primary btn-lg">
+          🚀 Create Free Account
+        </a>
+        <a href="login.html" class="btn btn-secondary btn-lg">Sign In</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="landing-footer">
+    <div style="margin-bottom: var(--space-2);">
+      <strong style="color: rgba(255,255,255,0.5);">TaskFlow<span style="color: var(--color-primary-400);">Pro</span></strong>
+    </div>
+    © 2026 TaskFlow Pro. Built with ❤️ for productivity enthusiasts.
+  </footer>
+
+  <script src="js/utils.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/notifications.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

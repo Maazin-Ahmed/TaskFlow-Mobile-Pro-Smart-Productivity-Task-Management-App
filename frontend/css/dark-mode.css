@@ -1,0 +1,87 @@
+/* ============================================================
+   TaskFlow Pro — Dark Mode Supplementary Overrides
+   ============================================================ */
+
+[data-theme="dark"] .auth-right {
+  background: #0f172a;
+}
+
+[data-theme="dark"] .auth-form-card {
+  background: #1e293b;
+  border-color: #334155;
+}
+
+[data-theme="dark"] .task-card {
+  background: rgba(30,41,59,0.80);
+  border-color: rgba(99,116,143,0.20);
+}
+
+[data-theme="dark"] .kanban-task-card {
+  background: #1e293b;
+  border-color: #334155;
+}
+
+[data-theme="dark"] .kanban-column {
+  background: rgba(15,23,42,0.85);
+  border-color: rgba(99,116,143,0.15);
+}
+
+[data-theme="dark"] .input {
+  background: rgba(15,23,42,0.8);
+  border-color: #334155;
+  color: #f1f5f9;
+}
+[data-theme="dark"] .input:focus {
+  background: rgba(30,41,59,0.95);
+}
+
+[data-theme="dark"] select.input option { background: #1e293b; }
+
+[data-theme="dark"] .modal {
+  background: #1e293b;
+  border-color: #334155;
+}
+
+[data-theme="dark"] .dropdown-menu {
+  background: #1e293b;
+  border-color: #334155;
+}
+
+[data-theme="dark"] .toast {
+  background: #1e293b;
+  border-color: #334155;
+}
+
+[data-theme="dark"] .topbar {
+  background: rgba(15,23,42,0.90);
+  border-color: rgba(99,116,143,0.15);
+}
+
+[data-theme="dark"] .deadline-item {
+  background: rgba(30,41,59,0.6);
+}
+
+[data-theme="dark"] .feature-card {
+  background: rgba(255,255,255,0.02);
+  border-color: rgba(255,255,255,0.05);
+}
+
+[data-theme="dark"] .search-input {
+  background: rgba(15,23,42,0.8);
+  border-color: #334155;
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .chip {
+  background: rgba(15,23,42,0.8);
+  border-color: #334155;
+}
+
+[data-theme="dark"] .profile-header-card {
+  /* keeps the gradient, looks great in dark mode */
+}
+
+[data-theme="dark"] .card-flat {
+  background: #1e293b;
+  border-color: #334155;
+}
