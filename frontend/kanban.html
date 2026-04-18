@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kanban Board — TaskFlow Pro</title>
+  <meta name="description" content="Drag-and-drop Kanban board for visual task management." />
+
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/pages.css" />
+  <link rel="stylesheet" href="css/dark-mode.css" />
+</head>
+<body data-page="kanban">
+  <div id="toast-container"></div>
+
+  <div class="app-shell">
+    <!-- ────────── Sidebar ────────── -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <a href="index.html" class="sidebar-logo">
+          <div class="sidebar-logo-icon">⚡</div>
+          <span class="sidebar-logo-text">TaskFlow<span>Pro</span></span>
+        </a>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="sidebar-section-label">Main</div>
+        <a href="dashboard.html" class="sidebar-link">
+          <span class="sidebar-link-icon">🏠</span> Dashboard
+        </a>
+        <a href="tasks.html" class="sidebar-link">
+          <span class="sidebar-link-icon">📋</span> My Tasks
+        </a>
+        <a href="kanban.html" class="sidebar-link">
+          <span class="sidebar-link-icon">🗂️</span> Kanban Board
+        </a>
+        <div class="sidebar-section-label">Account</div>
+        <a href="profile.html" class="sidebar-link">
+          <span class="sidebar-link-icon">👤</span> Profile
+        </a>
+        <a href="#" class="sidebar-link" data-logout>
+          <span class="sidebar-link-icon">🚪</span> Sign Out
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <a href="profile.html" class="sidebar-user">
+          <div class="avatar avatar-sm" id="sidebar-avatar">?</div>
+          <div class="sidebar-user-info">
+            <div class="sidebar-user-name" id="sidebar-user-name">Loading...</div>
+            <div class="sidebar-user-email" id="sidebar-user-email"></div>
+          </div>
+        </a>
+      </div>
+    </aside>
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <!-- ────────── Main Content ────────── -->
+    <main class="main-content">
+      <header class="topbar">
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
+        <h2 class="topbar-title">Kanban Board</h2>
+        <div class="topbar-actions">
+          <button class="topbar-icon-btn" data-theme-toggle title="Toggle theme">🌙</button>
+          <a href="tasks.html" class="btn btn-primary btn-sm">＋ New Task</a>
+        </div>
+      </header>
+
+      <div class="page-container" style="max-width: 100%;">
+        <div class="page-header">
+          <div class="page-header-row">
+            <div>
+              <h1 class="page-title">Kanban Board</h1>
+              <p class="page-subtitle">Drag and drop tasks between columns to update their status.</p>
+            </div>
+            <a href="tasks.html" class="btn btn-secondary btn-sm">📋 List View</a>
+          </div>
+        </div>
+
+        <!-- Kanban Board -->
+        <div class="kanban-board">
+          <!-- To Do Column -->
+          <div class="kanban-column">
+            <div class="kanban-column-header">
+              <div class="kanban-column-title">
+                <span style="color: var(--color-text-muted);">⭕</span>
+                To Do
+              </div>
+              <span class="kanban-column-count" id="col-count-todo">0</span>
+            </div>
+            <div class="kanban-cards" id="col-todo">
+              <!-- Loading skeletons -->
+              <div class="kanban-task-card">
+                <div class="skeleton" style="height:14px; width:80%; margin-bottom:10px;"></div>
+                <div class="skeleton" style="height:12px; width:60%; margin-bottom:10px;"></div>
+                <div style="display:flex; gap:6px;">
+                  <div class="skeleton" style="height:20px; width:50px; border-radius:20px;"></div>
+                  <div class="skeleton" style="height:20px; width:60px; border-radius:20px;"></div>
+                </div>
+              </div>
+              <div class="kanban-task-card">
+                <div class="skeleton" style="height:14px; width:70%; margin-bottom:10px;"></div>
+                <div style="display:flex; gap:6px;">
+                  <div class="skeleton" style="height:20px; width:55px; border-radius:20px;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- In Progress Column -->
+          <div class="kanban-column" style="border-top: 3px solid var(--color-warning);">
+            <div class="kanban-column-header">
+              <div class="kanban-column-title">
+                <span style="color: var(--color-warning);">⏳</span>
+                In Progress
+              </div>
+              <span class="kanban-column-count" id="col-count-in-progress">0</span>
+            </div>
+            <div class="kanban-cards" id="col-in-progress">
+              <div class="kanban-task-card">
+                <div class="skeleton" style="height:14px; width:75%; margin-bottom:10px;"></div>
+                <div style="display:flex; gap:6px;">
+                  <div class="skeleton" style="height:20px; width:65px; border-radius:20px;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Completed Column -->
+          <div class="kanban-column" style="border-top: 3px solid var(--color-success);">
+            <div class="kanban-column-header">
+              <div class="kanban-column-title">
+                <span style="color: var(--color-success);">✅</span>
+                Completed
+              </div>
+              <span class="kanban-column-count" id="col-count-completed">0</span>
+            </div>
+            <div class="kanban-cards" id="col-completed">
+              <!-- Cards populated by JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/utils.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/notifications.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/kanban.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

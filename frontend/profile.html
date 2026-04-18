@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profile — TaskFlow Pro</title>
+  <meta name="description" content="Manage your TaskFlow Pro profile, settings, and password." />
+
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/pages.css" />
+  <link rel="stylesheet" href="css/dark-mode.css" />
+</head>
+<body data-page="profile">
+  <div id="toast-container"></div>
+
+  <div class="app-shell">
+    <!-- ────────── Sidebar ────────── -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <a href="index.html" class="sidebar-logo">
+          <div class="sidebar-logo-icon">⚡</div>
+          <span class="sidebar-logo-text">TaskFlow<span>Pro</span></span>
+        </a>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="sidebar-section-label">Main</div>
+        <a href="dashboard.html" class="sidebar-link">
+          <span class="sidebar-link-icon">🏠</span> Dashboard
+        </a>
+        <a href="tasks.html" class="sidebar-link">
+          <span class="sidebar-link-icon">📋</span> My Tasks
+        </a>
+        <a href="kanban.html" class="sidebar-link">
+          <span class="sidebar-link-icon">🗂️</span> Kanban Board
+        </a>
+        <div class="sidebar-section-label">Account</div>
+        <a href="profile.html" class="sidebar-link">
+          <span class="sidebar-link-icon">👤</span> Profile
+        </a>
+        <a href="#" class="sidebar-link" data-logout>
+          <span class="sidebar-link-icon">🚪</span> Sign Out
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <a href="profile.html" class="sidebar-user">
+          <div class="avatar avatar-sm" id="sidebar-avatar">?</div>
+          <div class="sidebar-user-info">
+            <div class="sidebar-user-name" id="sidebar-user-name">Loading...</div>
+            <div class="sidebar-user-email" id="sidebar-user-email"></div>
+          </div>
+        </a>
+      </div>
+    </aside>
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <!-- ────────── Main Content ────────── -->
+    <main class="main-content">
+      <header class="topbar">
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
+        <h2 class="topbar-title">Profile</h2>
+        <div class="topbar-actions">
+          <button class="topbar-icon-btn" data-theme-toggle title="Toggle theme">🌙</button>
+        </div>
+      </header>
+
+      <div class="page-container" style="max-width: 800px;">
+        <!-- Profile Header Card -->
+        <div class="profile-header-card animate-fadeInUp">
+          <div class="profile-avatar-xl profile-avatar-initial" id="profile-avatar-header">?</div>
+          <div style="position:relative; z-index:1;">
+            <div class="profile-name" id="profile-name">Loading...</div>
+            <div class="profile-email" id="profile-email"></div>
+            <div class="profile-joined" id="profile-joined"></div>
+          </div>
+        </div>
+
+        <!-- Edit Profile Form -->
+        <div class="card animate-fadeInUp" style="margin-bottom: var(--space-5);">
+          <div style="display:flex; align-items:center; gap: var(--space-3); margin-bottom: var(--space-6);">
+            <div style="width: 36px; height: 36px; background: rgba(99,102,241,0.12); border-radius: var(--radius-md); display:flex; align-items:center; justify-content:center;">👤</div>
+            <div>
+              <div style="font-size: var(--text-base); font-weight: var(--font-bold);">Edit Profile</div>
+              <div style="font-size: var(--text-sm); color: var(--color-text-muted);">Update your name and bio</div>
+            </div>
+          </div>
+
+          <form id="profile-form">
+            <div style="display: flex; flex-direction: column; gap: var(--space-5);">
+              <div class="input-group">
+                <label class="input-label" for="pf-name">Full Name</label>
+                <input type="text" id="pf-name" class="input" placeholder="Your full name" maxlength="100" />
+              </div>
+
+              <div class="input-group">
+                <label class="input-label" for="pf-email">Email Address</label>
+                <input type="email" id="pf-email" class="input" disabled
+                       style="opacity: 0.6; cursor: not-allowed;" />
+                <span style="font-size: var(--text-xs); color: var(--color-text-muted);">
+                  Email cannot be changed after registration
+                </span>
+              </div>
+
+              <div class="input-group">
+                <label class="input-label" for="pf-bio">Bio</label>
+                <textarea id="pf-bio" class="input" rows="3"
+                          placeholder="Tell us a bit about yourself..." maxlength="300"></textarea>
+              </div>
+
+              <div style="display:flex; justify-content:flex-end;">
+                <button type="submit" class="btn btn-primary" id="pf-save-btn">Save Changes</button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <!-- Change Password Form -->
+        <div class="card animate-fadeInUp" style="margin-bottom: var(--space-5);">
+          <div style="display:flex; align-items:center; gap: var(--space-3); margin-bottom: var(--space-6);">
+            <div style="width: 36px; height: 36px; background: rgba(239,68,68,0.10); border-radius: var(--radius-md); display:flex; align-items:center; justify-content:center;">🔒</div>
+            <div>
+              <div style="font-size: var(--text-base); font-weight: var(--font-bold);">Change Password</div>
+              <div style="font-size: var(--text-sm); color: var(--color-text-muted);">Keep your account secure</div>
+            </div>
+          </div>
+
+          <form id="password-form">
+            <div style="display: flex; flex-direction: column; gap: var(--space-5);">
+              <div class="input-group">
+                <label class="input-label" for="pwd-current">Current Password</label>
+                <input type="password" id="pwd-current" class="input" placeholder="Your current password" required />
+              </div>
+              <div class="input-group">
+                <label class="input-label" for="pwd-new">New Password</label>
+                <input type="password" id="pwd-new" class="input"
+                       placeholder="Min. 8 chars, 1 uppercase, 1 number" required />
+              </div>
+              <div class="input-group">
+                <label class="input-label" for="pwd-confirm">Confirm New Password</label>
+                <input type="password" id="pwd-confirm" class="input" placeholder="Repeat new password" required />
+              </div>
+              <div style="display:flex; justify-content:flex-end;">
+                <button type="submit" class="btn btn-danger" id="pwd-save-btn">Change Password</button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <!-- Danger Zone -->
+        <div class="card animate-fadeInUp" style="border: 1px solid rgba(239,68,68,0.2);">
+          <div style="display:flex; align-items:center; gap: var(--space-3); margin-bottom: var(--space-4);">
+            <div style="width: 36px; height: 36px; background: rgba(239,68,68,0.10); border-radius: var(--radius-md); display:flex; align-items:center; justify-content:center;">⚠️</div>
+            <div>
+              <div style="font-size: var(--text-base); font-weight: var(--font-bold); color: var(--color-error);">Account</div>
+              <div style="font-size: var(--text-sm); color: var(--color-text-muted);">Manage your session</div>
+            </div>
+          </div>
+          <button class="btn btn-danger btn-sm" data-logout>🚪 Sign Out</button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/utils.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/notifications.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/profile.js"></script>
+  <script src="js/app.js"></script>
+
+  <script>
+    // Bridge profile avatar to the right element ID
+    document.addEventListener('DOMContentLoaded', () => {
+      const orig = Profile._render.bind(Profile);
+      Profile._render = function(profile) {
+        orig(profile);
+        const hdr = document.getElementById('profile-avatar-header');
+        if (hdr) {
+          hdr.textContent = Utils.initials(profile.name || '?');
+          hdr.style.background = profile.avatar_color || '#6366f1';
+        }
+      };
+    });
+  </script>
+</body>
+</html>

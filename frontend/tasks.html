@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Tasks — TaskFlow Pro</title>
+  <meta name="description" content="Manage all your tasks with filters, search, and priority management." />
+
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/pages.css" />
+  <link rel="stylesheet" href="css/dark-mode.css" />
+</head>
+<body data-page="tasks">
+  <div id="toast-container"></div>
+
+  <div class="app-shell">
+    <!-- ────────── Sidebar ────────── -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <a href="index.html" class="sidebar-logo">
+          <div class="sidebar-logo-icon">⚡</div>
+          <span class="sidebar-logo-text">TaskFlow<span>Pro</span></span>
+        </a>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="sidebar-section-label">Main</div>
+        <a href="dashboard.html" class="sidebar-link">
+          <span class="sidebar-link-icon">🏠</span> Dashboard
+        </a>
+        <a href="tasks.html" class="sidebar-link">
+          <span class="sidebar-link-icon">📋</span> My Tasks
+        </a>
+        <a href="kanban.html" class="sidebar-link">
+          <span class="sidebar-link-icon">🗂️</span> Kanban Board
+        </a>
+        <div class="sidebar-section-label">Account</div>
+        <a href="profile.html" class="sidebar-link">
+          <span class="sidebar-link-icon">👤</span> Profile
+        </a>
+        <a href="#" class="sidebar-link" data-logout>
+          <span class="sidebar-link-icon">🚪</span> Sign Out
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <a href="profile.html" class="sidebar-user">
+          <div class="avatar avatar-sm" id="sidebar-avatar">?</div>
+          <div class="sidebar-user-info">
+            <div class="sidebar-user-name" id="sidebar-user-name">Loading...</div>
+            <div class="sidebar-user-email" id="sidebar-user-email"></div>
+          </div>
+        </a>
+      </div>
+    </aside>
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <!-- ────────── Main Content ────────── -->
+    <main class="main-content">
+      <header class="topbar">
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
+        <h2 class="topbar-title">My Tasks</h2>
+        <div class="topbar-actions">
+          <button class="topbar-icon-btn" data-theme-toggle title="Toggle theme">🌙</button>
+          <button class="btn btn-primary btn-sm" id="create-task-btn">＋ New Task</button>
+        </div>
+      </header>
+
+      <div class="page-container">
+        <div class="page-header">
+          <div class="page-header-row">
+            <!-- Search -->
+            <div class="search-wrap" style="max-width: 360px;">
+              <span class="search-icon">🔍</span>
+              <input type="text" id="task-search" class="search-input" placeholder="Search tasks..." />
+            </div>
+            <span style="font-size: var(--text-sm); color: var(--color-text-muted);" id="task-count">Loading...</span>
+          </div>
+
+          <!-- Filters Row -->
+          <div style="margin-top: var(--space-4); display:flex; flex-direction:column; gap: var(--space-3);">
+            <!-- Priority filters -->
+            <div class="filter-chips">
+              <span style="font-size: var(--text-xs); font-weight: 600; color: var(--color-text-muted); margin-right: var(--space-1);">Priority:</span>
+              <button class="chip" data-filter="priority" data-value="high">🔴 High</button>
+              <button class="chip" data-filter="priority" data-value="medium">🟡 Medium</button>
+              <button class="chip" data-filter="priority" data-value="low">🟢 Low</button>
+            </div>
+            <!-- Status filters -->
+            <div class="filter-chips">
+              <span style="font-size: var(--text-xs); font-weight: 600; color: var(--color-text-muted); margin-right: var(--space-1);">Status:</span>
+              <button class="chip" data-filter="status" data-value="todo">To Do</button>
+              <button class="chip" data-filter="status" data-value="in-progress">In Progress</button>
+              <button class="chip" data-filter="status" data-value="completed">Completed</button>
+            </div>
+            <!-- Category filters -->
+            <div class="filter-chips">
+              <span style="font-size: var(--text-xs); font-weight: 600; color: var(--color-text-muted); margin-right: var(--space-1);">Category:</span>
+              <button class="chip" data-filter="category" data-value="work">💼 Work</button>
+              <button class="chip" data-filter="category" data-value="personal">🏠 Personal</button>
+              <button class="chip" data-filter="category" data-value="study">📚 Study</button>
+              <button class="chip" data-filter="category" data-value="health">💪 Health</button>
+              <button class="chip" data-filter="category" data-value="finance">💰 Finance</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Task List -->
+        <div class="tasks-grid" id="task-list">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- ────────── Task Modal ────────── -->
+  <div class="modal-overlay" id="task-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">New Task</h3>
+        <button class="modal-close" id="modal-close-btn" aria-label="Close">✕</button>
+      </div>
+
+      <form id="task-form">
+        <div style="display:flex; flex-direction:column; gap: var(--space-5);">
+          <div class="input-group">
+            <label class="input-label" for="task-title-input">Title <span class="required">*</span></label>
+            <input type="text" id="task-title-input" class="input" placeholder="What needs to be done?" required maxlength="200" />
+          </div>
+
+          <div class="input-group">
+            <label class="input-label" for="task-description-input">Description</label>
+            <textarea id="task-description-input" class="input" placeholder="Add more details..." rows="3" maxlength="2000"></textarea>
+          </div>
+
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap: var(--space-4);">
+            <div class="input-group">
+              <label class="input-label" for="task-priority-input">Priority</label>
+              <select id="task-priority-input" class="input">
+                <option value="high">🔴 High</option>
+                <option value="medium" selected>🟡 Medium</option>
+                <option value="low">🟢 Low</option>
+              </select>
+            </div>
+            <div class="input-group">
+              <label class="input-label" for="task-category-input">Category</label>
+              <select id="task-category-input" class="input">
+                <option value="work">💼 Work</option>
+                <option value="personal">🏠 Personal</option>
+                <option value="study">📚 Study</option>
+                <option value="health">💪 Health</option>
+                <option value="finance">💰 Finance</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap: var(--space-4);">
+            <div class="input-group">
+              <label class="input-label" for="task-status-input">Status</label>
+              <select id="task-status-input" class="input">
+                <option value="todo">To Do</option>
+                <option value="in-progress">In Progress</option>
+                <option value="completed">Completed</option>
+              </select>
+            </div>
+            <div class="input-group">
+              <label class="input-label" for="task-deadline-input">Deadline</label>
+              <input type="datetime-local" id="task-deadline-input" class="input" />
+            </div>
+          </div>
+
+          <div style="display:flex; gap: var(--space-3); justify-content:flex-end; padding-top: var(--space-2);">
+            <button type="button" class="btn btn-secondary" id="modal-close-btn-2" onclick="Tasks._closeModal()">Cancel</button>
+            <button type="submit" class="btn btn-primary" id="task-save-btn">Save Task</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/utils.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/notifications.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/tasks.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

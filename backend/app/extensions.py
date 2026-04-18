@@ -12,13 +12,21 @@ def init_db(app):
     """Initialize MongoDB connection."""
     global db, mongo_client
     mongo_uri = app.config.get("MONGO_URI")
-    mongo_client = MongoClient(mongo_uri)
+    mongo_client = MongoClient(
+        mongo_uri,
+        serverSelectionTimeoutMS=5000,  # Don't block app startup for 30s
+        connectTimeoutMS=5000,
+    )
     # Extract database name from URI, default to 'taskflow_pro'
     db_name = mongo_uri.rsplit("/", 1)[-1].split("?")[0] if "/" in mongo_uri else "taskflow_pro"
     db = mongo_client[db_name]
 
-    # Create indexes for performance
-    _create_indexes()
+    # Create indexes — non-fatal if DB unavailable at startup
+    try:
+        _create_indexes()
+    except Exception as e:
+        import warnings
+        warnings.warn(f"Could not create MongoDB indexes (DB may be unreachable): {e}")
 
     return db
 
